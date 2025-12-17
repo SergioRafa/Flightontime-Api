@@ -47,3 +47,6 @@ Certifique-se de que o Python/Flask esteja rodando na porta 5000.
 Execute ./mvnw spring-boot:run ou inicie via sua IDE favorita na porta 8080.
 
 LinkedIn : [ www.linkedin.com/in/sergio-de-oliveira-rafael-47ba29286 ]
+Telefone : (24) 999840645
+E-mail  : sergiodeoliveirarafael@gmail.com
+
