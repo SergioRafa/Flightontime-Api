@@ -1,54 +1,92 @@
+
+
 🛫 FlightOnTime API
-A FlightOnTime API é o coração de um ecossistema inteligente voltado para a aviação, focado em prever atrasos de voos utilizando Machine Learning e integração de dados em tempo real. O sistema orquestra informações de múltiplas fontes para fornecer uma probabilidade precisa de pontualidade.
+Projeto de Ciência de Dados e Back-End - Hackathon ONE
+
+A FlightOnTime API é uma solução preditiva de alta precisão que estima o risco de atraso em decolagens. O sistema orquestra dados de múltiplas fontes, integrando um modelo de Machine Learning (Python) com um orquestrador Java/Spring Boot, consumindo condições meteorológicas reais em tempo real.
 
 🚀 Tecnologias Utilizadas
-Java 17 & Spring Boot 3.2: Base robusta da API.
+Java 17 & Spring Boot 3.2: Core do sistema e orquestração de APIs.
 
-Spring WebFlux (WebClient): Chamadas externas assíncronas de alta performance.
+Python 3.x / Flask: Microserviço de Machine Learning (Scikit-Learn).
 
-Jakarta Validation: Garantia de integridade dos dados de entrada.
+StormGlass API: Integração de dados climáticos reais (Temperatura e Vento).
 
-Lombok: Código limpo e produtivo.
+Spring WebFlux: Comunicação assíncrona entre serviços.
 
-Python/Flask: Microserviço dedicado ao modelo de Machine Learning.
+Frontend (HTML5/CSS3/JS): Dashboard dinâmico com feedback visual de risco.
 
-🛠️ Funcionalidades Principais
-Previsão Híbrida: Permite entrada manual de dados ou busca automática via número do voo.
+🛠️ Funcionalidades & Diferenciais (MVP+)
+Análise Preditiva Híbrida: Combina variáveis históricas com dados climáticos em tempo real.
 
-Orquestração Real-Time: Preparada para integrar dados da AeroAPI (FlightAware).
+Monitoramento de Tráfego: Identifica congestionamentos em aeroportos críticos (ex: GRU/GIG).
 
-Monitoramento de Tráfego: Lógica integrada para avaliar o impacto do tráfego nos aeroportos.
+Dashboard Visual: Interface que classifica o risco em Baixo (Verde), Moderado (Amarelo) ou Alto (Vermelho).
 
-Tratamento de Erros Global: Centralizado via ExceptionHandler, garantindo que o Front-end receba JSONs amigáveis mesmo em falhas críticas.
+Resiliência (Fallback): Caso as APIs externas fiquem offline, o sistema ativa uma base de dados histórica para garantir a continuidade da operação.
 
-📈 Jornada de Desenvolvimento: Desafios & Superação
-Durante o calor do Hackathon, enfrentamos batalhas técnicas que fortaleceram o projeto:
+⚙️ Configuração e Instalação
+1. Requisitos
+Java 17 instalado.
 
-A "Ponte" Java-Python: Integrar duas linguagens diferentes exigiu um cuidado especial na tipagem de dados. Refatoramos a comunicação para garantir que Doubles e Strings fossem interpretados corretamente pelo modelo de ML.
+Python 3.10+ instalado.
 
-Resiliência do Sistema: Implementamos uma lógica de fallback. Se o serviço de Machine Learning oscilar, a API Java responde com elegância, informando o status ao usuário sem travar a aplicação.
+Chave de API do StormGlass.
 
-Gestão de Conflitos de Ambiente: Superamos desafios de orquestração de portas e versões de JDK, garantindo que o ambiente local simulasse perfeitamente um ambiente de produção distribuído.
+2. Variáveis de Ambiente
+Para segurança e flexibilidade, o projeto utiliza variáveis de ambiente. No IntelliJ ou Terminal, configure:
 
-⚠️ Roadmap & Evolução (MVP)
-Como todo projeto inovador, já mapeamos os próximos passos:
+Bash
+CLIMA_API_KEY=sua_chave_stormglass_aqui
+3. Rodando o Microserviço de ML (Python)
+Bash
+cd ml-server
+pip install -r requirements.txt
+python app.py
+# Rodando em http://localhost:5000
+4. Rodando o Orquestrador (Java)
+Bash
+./mvnw spring-boot:run
+# Rodando em http://localhost:8085
+📡 Documentação da API
+Endpoint de Predição
+POST /api/previsao/predict
 
-Independência de Mocks: Evoluir as simulações da AeroAPI para uma integração de produção completa.
+Corpo da Requisição (JSON):
 
-Geolocalização Avançada: Substituir conversões estáticas por cálculos de rotas geodésicas em tempo real.
+JSON
+{
+  "origem": "GIG",
+  "destino": "GRU",
+  "distanciaKm": 440,
+  "dataPartida": "2025-12-20T12:00:00"
+}
+Exemplo de Resposta (JSON):
 
-Persistência de Dados: Implementar banco de dados (PostgreSQL/MongoDB) para análise histórica de previsões.
+JSON
+{
+  "previsao": "Risco Moderado",
+  "probabilidade": 20,
+  "clima": {
+    "temp": 23.8,
+    "vento": 4.9
+  }
+}
+📈 Exemplos para Teste (Apresentação)
+Voo Pontual (Risco Baixo): Origem GIG, Destino GRU, Distância 400.
 
-⚙️ Como Rodar o Projeto
-Certifique-se de que o Python/Flask esteja rodando na porta 5000.
+Risco de Atraso (Risco Alto): Origem GRU (Tráfego Crítico), Distância 700.
 
-Execute ./mvnw spring-boot:run ou inicie via IDE na porta 8080.
+Erro de Validação: Enviar campo origem vazio (Retorna 400 Bad Request).
 
-Acesse o endpoint de teste: http://localhost:8080/api/previsao/status
+📊 Jornada de Desenvolvimento
+Ponte Poliglota: Superamos o desafio de converter tipos de dados entre Java (Double) e Python (float64) para garantir a precisão do modelo.
+
+Arquitetura Resiliente: Implementamos filtros de segurança para que falhas em APIs de terceiros não interrompam o serviço principal.
 
 📫 Contato
 LinkedIn: Sergio de Oliveira Rafael
 
-Telefone: (24) 99984-0645
-
 E-mail: sergiodeoliveirarafael@gmail.com
+
+Telefone: (24) 99984-0645
