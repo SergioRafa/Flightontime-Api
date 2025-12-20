@@ -1,14 +1,18 @@
-package com.flightontime.api;
+package com.flightontime.api; // O pacote PRECISA ser este para encontrar o Controller
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
-// Esta anotação é o que diz ao Spring Boot para inicializar a aplicação.
 @SpringBootApplication
 public class ApiApplication {
 
     public static void main(String[] args) {
         SpringApplication.run(ApiApplication.class, args);
-    }
 
+        System.out.println("\n\n=========================================");
+        System.out.println("   FLIGHT ON TIME - BACKEND ONLINE!      ");
+        System.out.println("   URL: http://localhost:8085!              ");
+        System.out.println("   Pronto para a apresentação!           ");
+        System.out.println("=========================================\n");
+    }
 }

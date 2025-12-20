@@ -1,24 +1,22 @@
 server:
-  port: 8080
+  port: 8085
 
 app:
   integration:
     ml:
-      # URL onde o teu servidor Flask (Python) está a correr
+      # URL do servidor Python (IA)
       url: "http://127.0.0.1:5000/predict"
-      # Ponto de corte para decidir se está atrasado (0.5 = 50%)
       threshold-prob: 0.5
 
     clima:
       # URL da API StormGlass
       url: "https://api.stormglass.io/v2/weather/point"
-
+      # O Spring vai ler a variável CLIMA_API_KEY que você configurou no IntelliJ
       key: "${CLIMA_API_KEY}"
       coords:
-        # Coordenadas do Aeroporto do Galeão (GIG)
+        # Coordenadas fixas para teste (Galeão - RJ)
         gig-lat: -22.81
         gig-lon: -43.24
 
     noticias:
-      # URL para simulação de trânsito
-      url: "http://localhost:8080/api/noticias"
+      url: "http://localhost:8085/api/noticias"
